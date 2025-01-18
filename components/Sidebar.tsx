@@ -18,9 +18,10 @@ import {
   Settings,
   User,
 } from "lucide-react";
+
 const Sidebar = () => {
   return (
-    <>
+    <CommandDialog>
       <Command className="bg-secondary rounded-none">
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
@@ -59,7 +60,7 @@ const Sidebar = () => {
           </CommandGroup>
         </CommandList>
       </Command>
-    </>
+    </CommandDialog>
   );
 };
 

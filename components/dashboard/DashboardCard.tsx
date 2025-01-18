@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface ChartData {
@@ -41,10 +42,7 @@ const DashboardCard: React.FC = () => {
     ],
   });
 
-  const handleChart1Click = (
-    event: React.MouseEvent<HTMLCanvasElement>,
-    elements: any[]
-  ) => {
+  const handleChart1Click = (event: any, elements: any[]) => {
     if (elements.length > 0) {
       const clickedIndex = elements[0].index;
       const newChartData: ChartData = {
@@ -70,6 +68,14 @@ const DashboardCard: React.FC = () => {
     }
   };
 
+  const chart1Options = {
+    onClick: (event: any, elements: any[]) => {
+      if (elements.length > 0) {
+        handleChart1Click(event, elements);
+      }
+    },
+  };
+
   return (
     <Card className="bg-slate-100 dark:bg-slate-800 p-4">
       <CardContent>
@@ -84,13 +90,7 @@ const DashboardCard: React.FC = () => {
             <Pie
               data={chart1Data}
               className="w-64 h-64"
-              onClick={(event, elements) =>
-                handleChart1Click(event as any, elements)
-              }
-              options={{
-                onClick: (event, elements) =>
-                  handleChart1Click(event as any, elements),
-              }}
+              options={chart1Options}
             />
           </div>
           <div className="flex flex-col items-center">

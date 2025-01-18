@@ -9,6 +9,7 @@ import {
   ColumnDef,
   SortingState,
 } from "@tanstack/react-table";
+import { ReactNode } from "react";
 
 interface DataRow {
   id: number;
@@ -85,7 +86,8 @@ const TableComponent: React.FC = () => {
                     className="border border-gray-300 px-4 py-2 text-left cursor-pointer"
                     onClick={header.column.getToggleSortingHandler()}
                   >
-                    {header.column.columnDef.header}
+                    {/* Type-cast to ReactNode to fix the error */}
+                    {header.column.columnDef.header as ReactNode}
                     {header.column.getIsSorted() === "asc" && " 🔼"}
                     {header.column.getIsSorted() === "desc" && " 🔽"}
                   </th>
@@ -101,7 +103,7 @@ const TableComponent: React.FC = () => {
                     key={cell.id}
                     className="border border-gray-300 px-4 py-2"
                   >
-                    {cell.renderValue()}
+                    {cell.renderValue() as ReactNode}
                   </td>
                 ))}
               </tr>
